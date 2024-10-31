@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/op_list"
+        android:icon="@drawable/ic_list"
+        android:title="@string/txt_list" />
+    <item
+        android:id="@+id/op_add"
+        android:icon="@drawable/ic_add"
+        android:title="@string/txt_add" />
+</menu>
