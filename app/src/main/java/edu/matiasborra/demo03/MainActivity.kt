@@ -3,6 +3,7 @@ package edu.matiasborra.demo03
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -17,14 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragmentList: FragmentList
     private lateinit var fragmentAdd: FragmentAdd
 
-    companion object {
-        private var fragmentShowed: String? = null
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("fragmentShowed", fragmentShowed)
-        super.onSaveInstanceState(outState)
-    }
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +35,10 @@ class MainActivity : AppCompatActivity() {
         fragmentAdd = FragmentAdd()
 
         // Si no hay fragmento mostrado, carga el fragmento de lista
-        if(savedInstanceState == null){
+        if(mainViewModel.fragmentShowed == null){
             loadFragment(fragmentList)
         } else {
-            fragmentShowed = savedInstanceState.getString("fragmentShowed")
-            when(fragmentShowed){
+            when(mainViewModel.fragmentShowed){
                 fragmentList.javaClass.simpleName -> loadFragment(fragmentList)
                 fragmentAdd.javaClass.simpleName -> loadFragment(fragmentAdd)
             }
@@ -58,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             .replace(binding.mFrameLayout.id, fragment)
             .commit()
 
-        fragmentShowed = fragment.javaClass.simpleName
+        mainViewModel.setFragmentShowed(fragment.javaClass.simpleName)
     }
 
     // Eventos de ciclo de vida cuando pulso lista abre vista de lista y cuando pulso añadir abre vista de añadir

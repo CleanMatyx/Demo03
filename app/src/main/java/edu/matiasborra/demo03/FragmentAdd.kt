@@ -6,17 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import edu.matiasborra.demo03.databinding.AddFragmentBinding
 
 class FragmentAdd : Fragment() {
     private val TAG = FragmentAdd::class.java.simpleName
+    private lateinit var binding: AddFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         Log.i(TAG, "onCreateView")
-        return inflater.inflate(R.layout.add_fragment, container, false)
+        binding = AddFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.i(TAG, "onViewCreated")

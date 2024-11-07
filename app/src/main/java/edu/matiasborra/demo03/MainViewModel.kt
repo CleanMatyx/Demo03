@@ -1,5 +1,6 @@
 package edu.matiasborra.demo03
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
@@ -7,8 +8,11 @@ class MainViewModel : ViewModel() {
     val fragmentShowed: String?
         get() = _fragmentShowed
 
+    init {
+        Log.i("MainViewModel", "Init")
+    }
+
     fun setFragmentShowed(fragmentName: String) {
         _fragmentShowed = fragmentName
-
     }
 }
