@@ -17,6 +17,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragmentList: FragmentList
     private lateinit var fragmentAdd: FragmentAdd
 
+    companion object {
+        private var fragmentShowed: String? = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,8 +35,15 @@ class MainActivity : AppCompatActivity() {
         fragmentList = FragmentList()
         fragmentAdd = FragmentAdd()
 
-        loadFragment(fragmentList)
-
+        // Si no hay fragmento mostrado, carga el fragmento de lista
+        if(fragmentShowed.isNullOrEmpty()){
+            loadFragment(fragmentList)
+        } else {
+            when(fragmentShowed){
+                fragmentList.javaClass.simpleName -> loadFragment(fragmentList)
+                fragmentAdd.javaClass.simpleName -> loadFragment(fragmentAdd)
+            }
+        }
     }
 
     // Polimorfismo de Fragment
@@ -40,6 +51,8 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(binding.mFrameLayout.id, fragment)
             .commit()
+
+        fragmentShowed = fragment.javaClass.simpleName
     }
 
     // Eventos de ciclo de vida cuando pulso lista abre vista de lista y cuando pulso añadir abre vista de añadir
