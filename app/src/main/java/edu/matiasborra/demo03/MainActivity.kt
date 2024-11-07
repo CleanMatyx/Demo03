@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         private var fragmentShowed: String? = null
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("fragmentShowed", fragmentShowed)
+        super.onSaveInstanceState(outState)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,9 +41,10 @@ class MainActivity : AppCompatActivity() {
         fragmentAdd = FragmentAdd()
 
         // Si no hay fragmento mostrado, carga el fragmento de lista
-        if(fragmentShowed.isNullOrEmpty()){
+        if(savedInstanceState == null){
             loadFragment(fragmentList)
         } else {
+            fragmentShowed = savedInstanceState.getString("fragmentShowed")
             when(fragmentShowed){
                 fragmentList.javaClass.simpleName -> loadFragment(fragmentList)
                 fragmentAdd.javaClass.simpleName -> loadFragment(fragmentAdd)
