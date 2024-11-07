@@ -39,6 +39,14 @@
             android:textSize="20sp"
             android:textStyle="bold"
             tools:text="Title" />
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iconArchive"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="20dp"
+        android:contentDescription="@string/txt_archive_icon"
+        android:src="@drawable/ic_archive_add" />
 </LinearLayout>

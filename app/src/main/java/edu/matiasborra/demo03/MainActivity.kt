@@ -15,8 +15,10 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
 
+    // Fragments declarados
     private lateinit var fragmentList: FragmentList
     private lateinit var fragmentAdd: FragmentAdd
+    private lateinit var fragmentArchive: FragmentArchive       //añado fragment de archivados
 
     private val mainViewModel: MainViewModel by viewModels()
 
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
         fragmentList = FragmentList()
         fragmentAdd = FragmentAdd()
+        fragmentArchive = FragmentArchive()
 
         // Si no hay fragmento mostrado, carga el fragmento de lista
         if(mainViewModel.fragmentShowed == null){
@@ -41,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             when(mainViewModel.fragmentShowed){
                 fragmentList.javaClass.simpleName -> loadFragment(fragmentList)
                 fragmentAdd.javaClass.simpleName -> loadFragment(fragmentAdd)
+                fragmentArchive.javaClass.simpleName -> loadFragment(fragmentArchive)
             }
         }
     }
@@ -62,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.op_list -> loadFragment(fragmentList)
                 R.id.op_add -> loadFragment(fragmentAdd)
+                R.id.op_archive -> loadFragment(fragmentArchive)
             }
             true
         }

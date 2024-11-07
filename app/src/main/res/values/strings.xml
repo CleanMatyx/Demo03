@@ -2,6 +2,8 @@
     <string name="app_name">Demo03</string>
     <string name="txt_list">List</string>
     <string name="txt_add">Add</string>
+    <string name="txt_archived_items">Archive</string>"
+    <string name="txt_archive_icon">Icon</string>
     <string name="txt_title">Title</string>
     <string name="txt_description">Description</string>
     <string name="txt_save">Save</string>

@@ -9,4 +9,8 @@
         android:id="@+id/op_add"
         android:icon="@drawable/ic_add"
         android:title="@string/txt_add" />
+    <item
+        android:id="@+id/op_archive"
+        android:icon="@drawable/ic_archive"
+        android:title="@string/txt_archived_items" />
 </menu>
