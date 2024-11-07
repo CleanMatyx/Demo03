@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "edu.matiasborra.demo03"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "edu.matiasborra.demo03"
@@ -51,4 +51,7 @@ dependencies {
 
     //glide
     implementation(libs.glide)
+
+    // Fragments-ktx
+    implementation(libs.fragment.ktx)
 }

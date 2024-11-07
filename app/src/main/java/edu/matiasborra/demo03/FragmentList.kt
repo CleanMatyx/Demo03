@@ -6,21 +6,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import edu.matiasborra.demo03.databinding.ListFragmentBinding
+import edu.matiasborra.edumatiasborrademo02.model.Items
 
 class FragmentList : Fragment() {
     private val TAG = FragmentList::class.java.simpleName
+    private lateinit var binding: ListFragmentBinding
+    //view model compartido entre fragmentos
+    private val sharedViewModel: MainViewModel by activityViewModels()
+    private val adapter =ItemsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         Log.i(TAG, "onCreateView")
-        return inflater.inflate(R.layout.list_fragment, container, false)
+        Log.d(TAG, "onCreateView: ${Items.items.size}")
+        binding = ListFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.i(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+//        adapter.submitList(Items.items)     //con esto se actualiza la lista de items en el adapter
+        adapter.submitList(sharedViewModel.fetchItems())
+        binding.mRecycled.layoutManager = LinearLayoutManager(context)
+        binding.mRecycled.adapter = adapter
     }
 
     override fun onResume() {
