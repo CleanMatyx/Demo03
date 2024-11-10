@@ -12,6 +12,9 @@ import edu.matiasborra.demo03.adapters.ItemsAdapter
 import edu.matiasborra.demo03.databinding.ListFragmentBinding
 import edu.matiasborra.edumatiasborrademo02.model.Items
 
+/**
+ * Fragmento para la lista de elementos archivados
+ */
 class FragmentArchive() : Fragment() {
     private val TAG = FragmentArchive::class.java.simpleName
     private lateinit var binding: ListFragmentBinding
@@ -19,7 +22,13 @@ class FragmentArchive() : Fragment() {
     private val sharedViewModel: MainViewModel by activityViewModels()
     private val adapter = ItemsAdapter()
 
-
+    /**
+     * Creación de la vista del fragmento
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return vista del fragmento
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,6 +40,11 @@ class FragmentArchive() : Fragment() {
         return binding.root
     }
 
+    /**
+     * Creación de la vista del fragmento
+     * @param view
+     * @param savedInstanceState
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.i(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
@@ -38,21 +52,4 @@ class FragmentArchive() : Fragment() {
         binding.mRecycled.layoutManager = LinearLayoutManager(context)
         binding.mRecycled.adapter = adapter
     }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i(TAG, "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i(TAG, "onPause")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i(TAG, "onDestroy")
-    }
-
-
 }

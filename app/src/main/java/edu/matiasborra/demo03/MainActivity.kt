@@ -10,6 +10,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import edu.matiasborra.demo03.databinding.ActivityMainBinding
 
+/**
+ * Actividad principal de la aplicación
+ * Carga de fragmentos y eventos de ciclo de vida
+ */
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -22,6 +26,11 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModels()
 
+    /**
+     * Creación de la vista de la actividad
+     * @param savedInstanceState
+     * Carga de fragmento de lista si no hay ninguno cargado
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -49,7 +58,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // Polimorfismo de Fragment
+    /**
+     * Carga de fragmento
+     * @param fragment
+     * Carga el fragmento pasado por parámetro
+     * Actualiza el fragmento mostrado en el view model
+     * Fragmento mostrado por defecto es el de lista
+     * Fragmento mostrado se actualiza al pulsar en el menú de navegación
+     * Fragmento mostrado se actualiza al rotar la pantalla
+     */
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(binding.mFrameLayout.id, fragment)
@@ -58,7 +75,12 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.setFragmentShowed(fragment.javaClass.simpleName)
     }
 
-    // Eventos de ciclo de vida cuando pulso lista abre vista de lista y cuando pulso añadir abre vista de añadir
+    /**
+     * Evento de inicio de la actividad
+     * Carga de fragmentos y eventos de selección del menú de navegación
+     * Actualiza el fragmento mostrado al pulsar en el menú de navegación
+     * @return true
+     */
     override fun onStart() {
         super.onStart()
         Log.i(TAG, "onStart")
@@ -70,20 +92,5 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i(TAG, "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i(TAG, "onPause")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i(TAG, "onDestroy")
     }
 }

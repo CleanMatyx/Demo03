@@ -14,12 +14,15 @@ import edu.matiasborra.demo03.MainViewModel
 import edu.matiasborra.demo03.databinding.ItemsBinding
 import edu.matiasborra.edumatiasborrademo02.model.Items
 
+/**
+ * ItemsAdapter para la lista de elementos creados
+ */
 class ItemsAdapter() : ListAdapter<Items, ItemsAdapter.ViewHolder>(ItemsDiffCallback()) {
     //ViewHolder para la lista de elementos
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemsBinding.bind(view)
         private val viewModel = MainViewModel()
-        private val adapter = ItemsAdapter()
+//        private val adapter = ItemsAdapter()
 
         fun bind(item: Items) {
             binding.tvId.text = String.format(item.id.toString())
@@ -32,6 +35,7 @@ class ItemsAdapter() : ListAdapter<Items, ItemsAdapter.ViewHolder>(ItemsDiffCall
                 binding.iconArchive.visibility = View.VISIBLE
             }
 
+            //Carga de imagen con Glide y transformaciones
             Glide.with(binding.root)
                 .load(item.image)
                 .transform(FitCenter(), RoundedCorners(16))
@@ -42,13 +46,15 @@ class ItemsAdapter() : ListAdapter<Items, ItemsAdapter.ViewHolder>(ItemsDiffCall
                 MaterialAlertDialogBuilder(binding.root.context)
                     .setTitle(item.title)
                     .setMessage(item.description)
-                    .setPositiveButton("Ok", null)
+                    .setPositiveButton("Accept", null)
                     .show()
             }
 
             //Añado listener para cuando pulse el item en la lista para archivarlo
             binding.iconArchive.setOnClickListener {
-                viewModel.archiveItem(item, adapter)
+                viewModel.archiveItem(item) {
+                    submitList(viewModel.fetchItems())
+                }
             }
         }
     }
@@ -72,10 +78,12 @@ class ItemsAdapter() : ListAdapter<Items, ItemsAdapter.ViewHolder>(ItemsDiffCall
 
 //Comprobación de objetos
 class ItemsDiffCallback: DiffUtil.ItemCallback<Items>() {
+    //Comprobación de id
     override fun areItemsTheSame(oldItem: Items, newItem: Items): Boolean {
         return oldItem.id == newItem.id
     }
 
+    //Comprobación de contenido
     override fun areContentsTheSame(oldItem: Items, newItem: Items): Boolean {
         return oldItem == newItem
     }

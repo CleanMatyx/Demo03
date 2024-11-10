@@ -12,12 +12,18 @@ import androidx.fragment.app.activityViewModels
 import edu.matiasborra.demo03.databinding.AddFragmentBinding
 import edu.matiasborra.edumatiasborrademo02.model.Items
 
+/**
+ * Fragmento para añadir elementos a la lista
+ */
 class FragmentAdd : Fragment() {
     private val TAG = FragmentAdd::class.java.simpleName
     private lateinit var binding: AddFragmentBinding
     //view model compartido entre fragmentos
     private val sharedViewModel: MainViewModel by activityViewModels()
 
+    /**
+     * Creación de la vista del fragmento
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,6 +33,10 @@ class FragmentAdd : Fragment() {
         binding = AddFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    /**
+     * Creación de la vista del fragmento
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.i(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
@@ -51,8 +61,10 @@ class FragmentAdd : Fragment() {
 //            val item = Items(title = title, description = description)
 //            Items.items.add(item)
 //            Log.d(TAG, "onViewCreated: $item")
+            //añadir item a la lista
             sharedViewModel.addItem(Items(title = title, description = description))
 
+            //limpiar campos
             binding.tietTitle.text?.clear()
             binding.tietDesc.text?.clear()
 
@@ -61,20 +73,5 @@ class FragmentAdd : Fragment() {
             val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.i(TAG, "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.i(TAG, "onPause")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i(TAG, "onDestroy")
     }
 }
